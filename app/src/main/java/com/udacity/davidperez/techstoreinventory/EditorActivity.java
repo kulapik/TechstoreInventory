@@ -86,13 +86,16 @@ public class EditorActivity extends AppCompatActivity implements android.app.Loa
         mSupplierNameEditText.setOnTouchListener(mTouchListener);
         mSupplierPhoneNumberEditText.setOnTouchListener(mTouchListener);
 
-        int quantity = 0;
+        int quantity = 1;
         mQuantityTextView.setText(String.valueOf(quantity));
         incrementButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int currentQuantity = Integer.parseInt(mQuantityTextView.getText().toString().trim());
                 mQuantityTextView.setText(String.valueOf(currentQuantity + 1));
+                if (currentQuantity >= 0) {
+                    decrementButton.setEnabled(true);
+                }
 
             }
         });
@@ -101,10 +104,8 @@ public class EditorActivity extends AppCompatActivity implements android.app.Loa
             public void onClick(View v) {
                 int currentQuantity = Integer.parseInt(mQuantityTextView.getText().toString().trim());
                 mQuantityTextView.setText(String.valueOf(currentQuantity - 1));
-                if (currentQuantity == 0) {
+                if (currentQuantity <= 1) {
                     decrementButton.setEnabled(false);
-                } else {
-                    decrementButton.setEnabled(true);
                 }
             }
         });
@@ -133,8 +134,8 @@ public class EditorActivity extends AppCompatActivity implements android.app.Loa
         long phoneNumber = 0;
         String supplierPhoneNumberString = mSupplierPhoneNumberEditText.getText().toString().trim();
 
-        if (mCurrentUri == null && TextUtils.isEmpty(nameString) || TextUtils.isEmpty(priceString)
-                || TextUtils.isEmpty(quantityString) || TextUtils.isEmpty(supplierNameString) || TextUtils.isEmpty(supplierPhoneNumberString)) {
+        if (mCurrentUri == null && (TextUtils.isEmpty(nameString) || TextUtils.isEmpty(priceString)
+                || TextUtils.isEmpty(quantityString) || TextUtils.isEmpty(supplierNameString) || TextUtils.isEmpty(supplierPhoneNumberString))) {
             Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
         } else {
 
