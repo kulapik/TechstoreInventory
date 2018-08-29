@@ -13,9 +13,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.WindowId;
 
-/**
- * Created by David on 26/08/2018.
- */
 
 public class InventoryProvider extends ContentProvider {
 
@@ -137,13 +134,7 @@ public class InventoryProvider extends ContentProvider {
                 throw new IllegalArgumentException("Price is required");
             }
         }
-        if (values.containsKey(InventoryContract.NewProduct.COLUMN_PRICE)) {
-            Integer price = values.getAsInteger(InventoryContract.NewProduct.COLUMN_PRICE);
-            if (price != null && price < 0) {
-                throw new IllegalArgumentException("Price is required");
-            }
-        }
-        if (values.containsKey(InventoryContract.NewProduct.COLUMN_QUANTITY)) {
+              if (values.containsKey(InventoryContract.NewProduct.COLUMN_QUANTITY)) {
             Integer quantity = values.getAsInteger(InventoryContract.NewProduct.COLUMN_QUANTITY);
             if (quantity != null && quantity < 0) {
                 throw new IllegalArgumentException("Quantity is required");
@@ -157,7 +148,7 @@ public class InventoryProvider extends ContentProvider {
         }
         if (values.containsKey(InventoryContract.NewProduct.COLUMN_SUPPLIER_PHONE_NUMBER)) {
             Integer supplierPhone = values.getAsInteger(InventoryContract.NewProduct.COLUMN_SUPPLIER_PHONE_NUMBER);
-            if (supplierPhone != null) {
+            if (supplierPhone == null) {
                 throw new IllegalArgumentException("Supplier number is required");
             }
         }

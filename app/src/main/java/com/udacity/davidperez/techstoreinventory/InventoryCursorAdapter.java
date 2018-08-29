@@ -58,7 +58,7 @@ public class InventoryCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View v) {
                 int currentQuantity = Integer.parseInt(quantityString) - 1;
-                if (currentQuantity > 0) {
+                if (currentQuantity >= 0) {
                     ContentValues values = new ContentValues();
                     values.put(InventoryContract.NewProduct.COLUMN_QUANTITY, currentQuantity);
                     String selection = InventoryContract.NewProduct._ID + "=?";

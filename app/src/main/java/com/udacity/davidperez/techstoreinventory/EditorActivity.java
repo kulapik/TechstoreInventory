@@ -115,7 +115,9 @@ public class EditorActivity extends AppCompatActivity implements android.app.Loa
         String uri = "tel:" + currentPhoneNumber;
         Intent intent = new Intent(Intent.ACTION_DIAL);
         intent.setData(Uri.parse(uri));
-        startActivity(intent);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
 
     }
 
@@ -131,8 +133,8 @@ public class EditorActivity extends AppCompatActivity implements android.app.Loa
         long phoneNumber = 0;
         String supplierPhoneNumberString = mSupplierPhoneNumberEditText.getText().toString().trim();
 
-        if (mCurrentUri == null && TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString)
-                && TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(supplierNameString) && TextUtils.isEmpty(supplierPhoneNumberString)) {
+        if (mCurrentUri == null && TextUtils.isEmpty(nameString) || TextUtils.isEmpty(priceString)
+                || TextUtils.isEmpty(quantityString) || TextUtils.isEmpty(supplierNameString) || TextUtils.isEmpty(supplierPhoneNumberString)) {
             Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
         } else {
 
